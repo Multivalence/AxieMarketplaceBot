@@ -1,0 +1,12 @@
+{
+  "classes" : ["Bird"],
+  "health" : [0,100],
+  "breedCount" : [0,100],
+  "speed" : [0,100],
+  "skill" : [0,100],
+  "morale" : [0,100],
+  "parts" : [],
+  "abilities" : [],
+  "price" : [0,100]
+
+}
