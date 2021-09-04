@@ -42,6 +42,8 @@ async def _getAxieData(data):
             'skill' : x['stats']['skill'],
             'morale' : x['stats']['morale'],
             'body_parts' : [i['name'] for i in x['parts']],
+            'pureness' : len([i['class'] for i in x['parts'] if i['class'] == x['class']]),
+            'numMystic' :[i['stage'] for i in x['parts']],
             'abilities' : [],
             'owner_profile' : x['ownerProfile']['name'],
             'id' : str(i['id']),
@@ -99,17 +101,16 @@ async def get_filtered_data():
 
     for axie in data:
 
+
         # Filtering Classes
-        for _class in axie['class']:
+        if not len(user_criteria['classes']) == 0:
 
-            if len(user_criteria['classes']) == 0:
-                break
+            if axie['class'] in user_criteria['classes']:
+                pass
 
-            if _class in user_criteria['classes']:
-                break
+            else:
+                continue
 
-        else:
-            continue
 
 
         # Filtering Parts
@@ -193,6 +194,28 @@ async def get_filtered_data():
 
             else:
                 continue
+
+
+
+        #Filtering Pureness
+        if not len(user_criteria['pureness']) == 0:
+            if user_criteria['pureness'][0] <= axie['pureness'] <= user_criteria['pureness'][1]:
+                pass
+
+            else:
+                continue
+
+
+        #Filtering numMystic
+        if not len(user_criteria['numMystic']) == 0:
+            for i in axie['numMystic']:
+
+                if user_criteria['numMystic'][0] <= i <= user_criteria['numMystic'][1]:
+                    pass
+
+                else:
+                    continue
+
 
 
         #Filtering Morale

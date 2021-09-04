@@ -61,7 +61,7 @@ class Sold(commands.Cog):
 
             for i in sale:
 
-                if i in ('id', 'image', 'url'):
+                if i in ('id', 'image', 'url', 'numMystic'):
                     continue
 
                 name = " ".join(map(str,[x.capitalize() for x in i.split("_")]))

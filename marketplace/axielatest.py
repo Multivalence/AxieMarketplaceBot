@@ -17,7 +17,7 @@ async def _makeRequest():
         'hp' : user_criteria['health'],
         'skill' : user_criteria['skill'],
         'speed' : user_criteria['speed'],
-        'morale' : user_criteria['morale'],
+        'morale' : user_criteria['morale']
     }
 
     payload = {
@@ -52,6 +52,8 @@ async def _makeRequest():
             'skill' : i['stats']['skill'],
             'morale' : i['stats']['morale'],
             'body_parts' : [x['name'] for x in i['parts']],
+            'pureness' : len([x['class'] for x in i['parts'] if x['class'] == i['class']]),
+            'numMystic' : [x['stage'] for x in i['parts']],
             'abilities' : [],
             'id' : str(i['id']),
             'url' : f"https://marketplace.axieinfinity.com/axie/{i['id']}",
@@ -121,6 +123,27 @@ async def get_filtered_data():
 
             else:
                 continue
+
+
+        #Filtering Pureness
+        if not len(user_criteria['pureness']) == 0:
+            if user_criteria['pureness'][0] <= axie['pureness'] <= user_criteria['pureness'][1]:
+                pass
+
+            else:
+                continue
+
+
+        #Filtering numMystic
+        if not len(user_criteria['numMystic']) == 0:
+            for i in axie['numMystic']:
+
+                if user_criteria['numMystic'][0] <= i <= user_criteria['numMystic'][1]:
+                    pass
+
+                else:
+                    continue
+
 
 
         #Filtering Price

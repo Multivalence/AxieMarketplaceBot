@@ -7,6 +7,8 @@
   "morale" : [0,100],
   "parts" : [],
   "abilities" : [],
-  "price" : [0,100]
+  "price" : [0,100],
+  "pureness" : [1,6],
+  "numMystic" : [1,6]
 
 }
