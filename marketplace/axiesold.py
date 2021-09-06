@@ -1,11 +1,7 @@
 import aiohttp
-import json
 
 url = "https://axieinfinity.com/graphql-server-v2/graphql"
 
-
-with open('./filters/axie-sold-criteria.json', 'r') as jsonFile:
-    user_criteria = json.load(jsonFile)
 
 
 
@@ -43,7 +39,7 @@ async def _getAxieData(data):
             'morale' : x['stats']['morale'],
             'body_parts' : [i['name'] for i in x['parts']],
             'pureness' : len([i['class'] for i in x['parts'] if i['class'] == x['class']]),
-            'numMystic' :[i['stage'] for i in x['parts']],
+            'numMystic' :len([i['specialGenes'] for i in x['parts'] if i['specialGenes'] == "Mystic"]),
             'abilities' : [],
             'owner_profile' : x['ownerProfile']['name'],
             'id' : str(i['id']),
@@ -90,7 +86,7 @@ async def _makeRequest():
 
 
 
-async def get_filtered_data():
+async def get_filtered_data(user_criteria):
 
     data = await _makeRequest()
     filtered_data = []
@@ -208,13 +204,12 @@ async def get_filtered_data():
 
         #Filtering numMystic
         if not len(user_criteria['numMystic']) == 0:
-            for i in axie['numMystic']:
 
-                if user_criteria['numMystic'][0] <= i <= user_criteria['numMystic'][1]:
-                    pass
+            if user_criteria['numMystic'][0] <= axie['numMystic'] <= user_criteria['numMystic'][1]:
+                pass
 
-                else:
-                    continue
+            else:
+                continue
 
 
 
