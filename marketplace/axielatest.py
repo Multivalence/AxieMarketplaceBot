@@ -48,13 +48,14 @@ async def _makeRequest(user_criteria):
             'skill' : i['stats']['skill'],
             'morale' : i['stats']['morale'],
             'body_parts' : [x['name'] for x in i['parts']],
+            'body_parts_id' : [x['id'] for x in i['parts']],
             'pureness' : len([x['class'] for x in i['parts'] if x['class'] == i['class']]),
             'numMystic' : len([x['specialGenes'] for x in i['parts'] if x['specialGenes'] == "Mystic"]),
             'abilities' : [],
             'id' : str(i['id']),
             'url' : f"https://marketplace.axieinfinity.com/axie/{i['id']}",
             'image' : i['image'],
-            'price' : round(int(i['auction']['currentPrice']) * 10 ** -18, 3),
+            'price' : round(int(i['auction']['currentPrice']) * 10 ** -18, 6),
             'time_left' : i['auction']['timeLeft']
         }
 

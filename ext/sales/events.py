@@ -5,6 +5,7 @@ from discord import Webhook, AsyncWebhookAdapter
 from discord.ext import commands, tasks
 from datetime import datetime
 from marketplace.axiesold import get_filtered_data
+from marketplace.axiefloorprice import get_floor_price
 
 
 class SoldEvent(commands.Cog):
@@ -82,7 +83,7 @@ class SoldEvent(commands.Cog):
 
                 for i in sale:
 
-                    if i in ('id', 'image', 'url'):
+                    if i in ('id', 'image', 'url', 'body_parts_id'):
                         continue
 
                     name = " ".join(map(str,[x.capitalize() for x in i.split("_")]))
@@ -95,6 +96,9 @@ class SoldEvent(commands.Cog):
 
 
                     embed.add_field(name=name, value=value)
+
+
+                embed.add_field(name="Floor Price", value=f"```{await get_floor_price(sale['body_parts_id'])}```")
 
 
                 embed.set_image(url=sale['image'])

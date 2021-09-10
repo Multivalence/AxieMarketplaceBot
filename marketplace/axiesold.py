@@ -38,6 +38,7 @@ async def _getAxieData(data):
             'skill' : x['stats']['skill'],
             'morale' : x['stats']['morale'],
             'body_parts' : [i['name'] for i in x['parts']],
+            'body_parts_id' : [i['id'] for i in x['parts']],
             'pureness' : len([i['class'] for i in x['parts'] if i['class'] == x['class']]),
             'numMystic' :len([i['specialGenes'] for i in x['parts'] if i['specialGenes'] == "Mystic"]),
             'abilities' : [],
@@ -45,7 +46,7 @@ async def _getAxieData(data):
             'id' : str(i['id']),
             'url' : f"https://marketplace.axieinfinity.com/axie/{i['id']}",
             'image' : x['image'],
-            'price' : int(i["transferHistory"]['results'][0]["withPrice"]) * 10 ** -18
+            'price' : round(int(i["transferHistory"]['results'][0]["withPrice"]) * 10 ** -18, 6)
         }
 
         for i in x['parts']:
