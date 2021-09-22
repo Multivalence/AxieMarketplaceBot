@@ -64,8 +64,9 @@ class ListingsEvent(commands.Cog):
             data = await get_filtered_data(data_json)
 
 
+
             if len(data) == 0 or not data:
-                return
+                continue
 
             for listing in data:
 
@@ -96,7 +97,7 @@ class ListingsEvent(commands.Cog):
                     embed.add_field(name=name, value=value)
 
 
-                embed.add_field(name="Floor Price", value=f"```{await get_floor_price(listing['body_parts_id'])}```")
+                embed.add_field(name="Floor Price", value=f"```{await get_floor_price(data_json)}```")
 
 
                 embed.set_image(url=listing['image'])

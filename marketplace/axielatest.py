@@ -8,22 +8,13 @@ async def _makeRequest(user_criteria):
 
     axies = []
 
-    criteria = {
-        'classes' : user_criteria['classes'],
-        'hp' : user_criteria['health'],
-        'skill' : user_criteria['skill'],
-        'speed' : user_criteria['speed'],
-        'morale' : user_criteria['morale']
-    }
-
     payload = {
         "operationName": "GetAxieLatest",
         "variables": {
             "from": 0,
             "size": 10,
             "sort": "PriceAsc",
-            "auctionType": "Sale",
-            "criteria": criteria
+            "auctionType": "Sale"
         },
         "query": "query GetAxieLatest($auctionType: AuctionType, $criteria: AxieSearchCriteria, $from: Int, $sort: SortBy, $size: Int, $owner: String) {\n  axies(auctionType: $auctionType, criteria: $criteria, from: $from, sort: $sort, size: $size, owner: $owner) {\n    total\n    results {\n      ...AxieRowData\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment AxieRowData on Axie {\n  id\n  image\n  class\n  name\n  genes\n  owner\n  class\n  stage\n  title\n  breedCount\n  level\n  parts {\n    ...AxiePart\n    __typename\n  }\n  stats {\n    ...AxieStats\n    __typename\n  }\n  auction {\n    ...AxieAuction\n    __typename\n  }\n  __typename\n}\n\nfragment AxiePart on AxiePart {\n  id\n  name\n  class\n  type\n  specialGenes\n  stage\n  abilities {\n    ...AxieCardAbility\n    __typename\n  }\n  __typename\n}\n\nfragment AxieCardAbility on AxieCardAbility {\n  id\n  name\n  attack\n  defense\n  energy\n  description\n  backgroundUrl\n  effectIconUrl\n  __typename\n}\n\nfragment AxieStats on AxieStats {\n  hp\n  speed\n  skill\n  morale\n  __typename\n}\n\nfragment AxieAuction on Auction {\n  startingPrice\n  endingPrice\n  startingTimestamp\n  endingTimestamp\n  duration\n  timeLeft\n  currentPrice\n  currentPriceUSD\n  suggestedPrice\n  seller\n  listingIndex\n  state\n  __typename\n}\n"
     }
@@ -59,6 +50,7 @@ async def _makeRequest(user_criteria):
             'time_left' : i['auction']['timeLeft']
         }
 
+
         for x in i['parts']:
             for j in x['abilities']:
                 ability_name = j.get('name', None)
@@ -82,6 +74,59 @@ async def get_filtered_data(user_criteria):
 
 
     for axie in data:
+
+        # Filtering Classes
+        if not len(user_criteria['classes']) == 0:
+
+            if axie['class'] in user_criteria['classes']:
+                pass
+
+            else:
+                continue
+
+
+        #Filtering Health
+
+        if not len(user_criteria['health']) == 0:
+
+            if user_criteria['health'][0] <= axie['health'] <= user_criteria['health'][1]:
+                pass
+
+            else:
+                continue
+
+
+        #Filtering Speed
+
+        if not len(user_criteria['speed']) == 0:
+
+            if user_criteria['speed'][0] <= axie['speed'] <= user_criteria['speed'][1]:
+                pass
+
+            else:
+                continue
+
+
+        #Filtering Skill
+
+        if not len(user_criteria['skill']) == 0:
+
+            if user_criteria['skill'][0] <= axie['skill'] <= user_criteria['skill'][1]:
+                pass
+
+            else:
+                continue
+
+
+        #Filtering Morale
+        if not len(user_criteria['morale']) == 0:
+
+            if user_criteria['morale'][0] <= axie['morale'] <= user_criteria['morale'][1]:
+                pass
+
+            else:
+                continue
+
 
         # Filtering Parts
         for part in axie['body_parts']:

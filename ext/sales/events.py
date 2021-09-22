@@ -65,8 +65,8 @@ class SoldEvent(commands.Cog):
 
 
 
-            if len(data) == 0 or not data:
-                return
+            if not data or len(data) == 0:
+                continue
 
             for sale in data:
 
@@ -98,7 +98,7 @@ class SoldEvent(commands.Cog):
                     embed.add_field(name=name, value=value)
 
 
-                embed.add_field(name="Floor Price", value=f"```{await get_floor_price(sale['body_parts_id'])}```")
+                embed.add_field(name="Floor Price", value=f"```{await get_floor_price(data_json)}```")
 
 
                 embed.set_image(url=sale['image'])

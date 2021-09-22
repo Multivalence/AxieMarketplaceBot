@@ -30,6 +30,9 @@ async def _getAxieData(data):
 
         x = resp['data']['axie']
 
+        if x is None:
+            continue
+
         axie_info = {
             'class' : x['class'],
             'breed_count' : x['breedCount'],
