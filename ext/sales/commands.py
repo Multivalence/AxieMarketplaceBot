@@ -40,7 +40,11 @@ class CommandsSales(commands.Cog):
                 return await ctx.send("Invalid data in JSON File!")
 
 
-        json_data = json.dumps(x)
+        try:
+            json_data = json.dumps(x)
+
+        except json.decoder.JSONDecodeError:
+            return await ctx.send("Invalid data in JSON File!")
 
         sql = 'INSERT INTO sales(channel) VALUES (?)'
         sql2 = 'UPDATE sales set data = ? where channel = ?'

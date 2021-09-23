@@ -38,8 +38,11 @@ class CommandsListing(commands.Cog):
             else:
                 return await ctx.send("Invalid data in JSON File!")
 
+        try:
+            json_data = json.dumps(x)
 
-        json_data = json.dumps(x)
+        except json.decoder.JSONDecodeError:
+            return await ctx.send("Invalid data in JSON File!")
 
         sql = 'INSERT INTO listings(channel) VALUES (?)'
         sql2 = 'UPDATE listings set data = ? where channel = ?'
