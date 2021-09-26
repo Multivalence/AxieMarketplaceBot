@@ -89,7 +89,7 @@ class SoldEvent(commands.Cog):
                     name = " ".join(map(str,[x.capitalize() for x in i.split("_")]))
 
                     if isinstance(sale[i], list):
-                        value = "```" + "\n".join(map(str,sale[i])) + "```"
+                        value = "```" + "\n" + "\n".join(map(str,sale[i])) + "```"
 
                     else:
                         value = f"```{sale[i]}```"

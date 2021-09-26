@@ -1,6 +1,6 @@
 import aiohttp
 
-url = "https://axieinfinity.com/graphql-server-v2/graphql"
+url = "https://graphql-gateway.axieinfinity.com/graphql"
 
 
 
@@ -105,7 +105,9 @@ async def get_filtered_data(user_criteria):
         # Filtering Classes
         if not len(user_criteria['classes']) == 0:
 
-            if axie['class'] in user_criteria['classes']:
+
+
+            if axie['class'].lower() in user_criteria['classes'].lower():
                 pass
 
             else:
@@ -114,27 +116,22 @@ async def get_filtered_data(user_criteria):
 
 
         # Filtering Parts
-        for part in axie['body_parts']:
+        if len(user_criteria['parts']) == 0:
+            pass
 
-            if len(user_criteria['parts']) == 0:
-                break
-
-            if part in user_criteria['parts']:
-                break
+        if all(i.lower() in [x.lower() for x in axie['body_parts']] for i in user_criteria['parts']):
+            pass
 
         else:
             continue
 
 
         # Filtering Abilities
+        if len(user_criteria['abilities']) == 0:
+            pass
 
-        for ability in axie['abilities']:
-
-            if len(user_criteria['abilities']) == 0:
-                break
-
-            if ability in user_criteria['abilities']:
-                break
+        if all(i.lower() in [x.lower() for x in axie['abilities']] for i in user_criteria['abilities']):
+            pass
 
 
         else:

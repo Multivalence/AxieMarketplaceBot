@@ -89,7 +89,7 @@ class ListingsEvent(commands.Cog):
                     name = " ".join(map(str,[x.capitalize() for x in i.split("_")]))
 
                     if isinstance(listing[i], list):
-                        value = "```" + "\n".join(map(str,listing[i])) + "```"
+                        value = "```" + "\n" + "\n".join(map(str,listing[i])) + "```"
 
                     else:
                         value = f"```{listing[i]}```"
