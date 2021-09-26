@@ -1,6 +1,6 @@
 import aiohttp
 
-url = "https://axieinfinity.com/graphql-server-v2/graphql"
+url = "https://graphql-gateway.axieinfinity.com/graphql"
 
 
 async def get_floor_price(user_criteria : dict):
