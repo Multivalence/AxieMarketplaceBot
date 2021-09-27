@@ -57,6 +57,7 @@ class SoldEvent(commands.Cog):
         db_data = await self.fetch_db_data()
 
         for channel_id, data_str in db_data:
+            print("Sale - Could not find anything related to criteria. Going to next Iteration.")
 
             webhook_url = await self.identifyWebhook(channel_id)
             data_json = json.loads(data_str)

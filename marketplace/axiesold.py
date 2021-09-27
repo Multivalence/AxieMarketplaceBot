@@ -1,4 +1,5 @@
 import aiohttp
+from pprint import pprint
 
 url = "https://graphql-gateway.axieinfinity.com/graphql"
 
@@ -9,7 +10,16 @@ async def _getAxieData(data):
 
     axies = []
 
-    for i in data['data']['settledAuctions']['axies']['results']:
+    try:
+
+        d = data['data']['settledAuctions']['axies']['results']
+
+    except TypeError:
+        pprint(data)
+
+        return False
+
+    for i in d:
 
         payload = {
             "operationName": "GetAxieDetail",

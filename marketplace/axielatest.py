@@ -1,4 +1,5 @@
 import aiohttp
+from pprint import pprint
 
 url = "https://graphql-gateway.axieinfinity.com/graphql"
 
@@ -30,8 +31,15 @@ async def _makeRequest(user_criteria):
 
             resp = await res.json()
 
+    try:
+        resp_data = resp['data']['axies']['results']
 
-    for i in resp['data']['axies']['results']:
+
+    except TypeError:
+        pprint(resp)
+        return False
+
+    for i in resp_data:
 
 
         axie_info = {
@@ -181,6 +189,6 @@ async def get_filtered_data(user_criteria):
         else:
             continue
 
-
+    print(filtered_data)
     return filtered_data
 
