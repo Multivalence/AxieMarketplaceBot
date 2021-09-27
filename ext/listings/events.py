@@ -65,7 +65,7 @@ class ListingsEvent(commands.Cog):
 
 
 
-            if len(data) == 0 or not data:
+            if not data:
                 continue
 
             for listing in data:

@@ -71,7 +71,7 @@ async def _makeRequest():
         "operationName": "GetRecentlyAxiesSold",
         "variables": {
             "from": 0,
-            "size": 10,
+            "size": 20,
             "sort": "Latest",
             "auctionType" : "Sale"
         },
@@ -105,9 +105,7 @@ async def get_filtered_data(user_criteria):
         # Filtering Classes
         if not len(user_criteria['classes']) == 0:
 
-
-
-            if axie['class'].lower() in user_criteria['classes'].lower():
+            if axie['class'].lower() in [i.lower() for i in user_criteria['classes']]:
                 pass
 
             else:
@@ -118,6 +116,7 @@ async def get_filtered_data(user_criteria):
         # Filtering Parts
         if len(user_criteria['parts']) == 0:
             pass
+
 
         if all(i.lower() in [x.lower() for x in axie['body_parts']] for i in user_criteria['parts']):
             pass

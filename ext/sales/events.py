@@ -65,7 +65,7 @@ class SoldEvent(commands.Cog):
 
 
 
-            if not data or len(data) == 0:
+            if not data:
                 continue
 
             for sale in data:
