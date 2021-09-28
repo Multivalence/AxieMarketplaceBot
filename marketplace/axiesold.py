@@ -111,129 +111,135 @@ async def get_filtered_data(user_criteria):
 
     for axie in data:
 
+        try:
 
-        # Filtering Classes
-        if not len(user_criteria['classes']) == 0:
 
-            if axie['class'].lower() in [i.lower() for i in user_criteria['classes']]:
+            # Filtering Classes
+            if not len(user_criteria['classes']) == 0:
+
+                if axie['class'].lower() in [i.lower() for i in user_criteria['classes']]:
+                    pass
+
+                else:
+                    continue
+
+
+
+            # Filtering Parts
+            if not len(user_criteria['parts']) == 0:
+                pass
+
+
+            elif all(i.lower() in [x.lower() for x in axie['body_parts']] for i in user_criteria['parts']):
                 pass
 
             else:
                 continue
 
 
-
-        # Filtering Parts
-        if len(user_criteria['parts']) == 0:
-            pass
-
-
-        if all(i.lower() in [x.lower() for x in axie['body_parts']] for i in user_criteria['parts']):
-            pass
-
-        else:
-            continue
-
-
-        # Filtering Abilities
-        if len(user_criteria['abilities']) == 0:
-            pass
-
-        if all(i.lower() in [x.lower() for x in axie['abilities']] for i in user_criteria['abilities']):
-            pass
-
-
-        else:
-            continue
-
-
-        #Filtering Breed Count
-
-        if not len(user_criteria['breedCount']) == 0:
-
-            if user_criteria['breedCount'][0] <= axie['breed_count'] <= user_criteria['breedCount'][1]:
+            # Filtering Abilities
+            if len(user_criteria['abilities']) == 0:
                 pass
+
+            elif all(i.lower() in [x.lower() for x in axie['abilities']] for i in user_criteria['abilities']):
+                pass
+
 
             else:
                 continue
 
 
+            #Filtering Breed Count
 
-        #Filtering Health
+            if not len(user_criteria['breedCount']) == 0:
 
-        if not len(user_criteria['health']) == 0:
+                if user_criteria['breedCount'][0] <= axie['breed_count'] <= user_criteria['breedCount'][1]:
+                    pass
 
-            if user_criteria['health'][0] <= axie['health'] <= user_criteria['health'][1]:
-                pass
+                else:
+                    continue
+
+
+
+            #Filtering Health
+
+            if not len(user_criteria['health']) == 0:
+
+                if user_criteria['health'][0] <= axie['health'] <= user_criteria['health'][1]:
+                    pass
+
+                else:
+                    continue
+
+
+            #Filtering Speed
+
+            if not len(user_criteria['speed']) == 0:
+
+                if user_criteria['speed'][0] <= axie['speed'] <= user_criteria['speed'][1]:
+                    pass
+
+                else:
+                    continue
+
+
+            #Filtering Skill
+
+            if not len(user_criteria['skill']) == 0:
+
+                if user_criteria['skill'][0] <= axie['skill'] <= user_criteria['skill'][1]:
+                    pass
+
+                else:
+                    continue
+
+
+            #Filtering Price
+            if not len(user_criteria['price']) == 0:
+
+                if user_criteria['price'][0] <= axie['price'] <= user_criteria['price'][1]:
+                    pass
+
+                else:
+                    continue
+
+
+
+            #Filtering Pureness
+            if not len(user_criteria['pureness']) == 0:
+                if user_criteria['pureness'][0] <= axie['pureness'] <= user_criteria['pureness'][1]:
+                    pass
+
+                else:
+                    continue
+
+
+            #Filtering numMystic
+            if not len(user_criteria['numMystic']) == 0:
+
+                if user_criteria['numMystic'][0] <= axie['numMystic'] <= user_criteria['numMystic'][1]:
+                    pass
+
+                else:
+                    continue
+
+
+
+            #Filtering Morale
+
+            if len(user_criteria['morale']) == 0:
+                filtered_data.append(axie)
+                continue
+
+            elif user_criteria['morale'][0] <= axie['morale'] <= user_criteria['morale'][1]:
+                filtered_data.append(axie)
+                continue
 
             else:
                 continue
 
 
-        #Filtering Speed
-
-        if not len(user_criteria['speed']) == 0:
-
-            if user_criteria['speed'][0] <= axie['speed'] <= user_criteria['speed'][1]:
-                pass
-
-            else:
-                continue
-
-
-        #Filtering Skill
-
-        if not len(user_criteria['skill']) == 0:
-
-            if user_criteria['skill'][0] <= axie['skill'] <= user_criteria['skill'][1]:
-                pass
-
-            else:
-                continue
-
-
-        #Filtering Price
-        if not len(user_criteria['price']) == 0:
-
-            if user_criteria['price'][0] <= axie['price'] <= user_criteria['price'][1]:
-                pass
-
-            else:
-                continue
-
-
-
-        #Filtering Pureness
-        if not len(user_criteria['pureness']) == 0:
-            if user_criteria['pureness'][0] <= axie['pureness'] <= user_criteria['pureness'][1]:
-                pass
-
-            else:
-                continue
-
-
-        #Filtering numMystic
-        if not len(user_criteria['numMystic']) == 0:
-
-            if user_criteria['numMystic'][0] <= axie['numMystic'] <= user_criteria['numMystic'][1]:
-                pass
-
-            else:
-                continue
-
-
-
-        #Filtering Morale
-
-        if len(user_criteria['morale']) == 0:
-            filtered_data.append(axie)
-            continue
-
-        elif user_criteria['morale'][0] <= axie['morale'] <= user_criteria['morale'][1]:
-            filtered_data.append(axie)
-            continue
-
-        else:
+        except AttributeError:
             continue
 
     return filtered_data
